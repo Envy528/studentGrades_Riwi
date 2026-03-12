@@ -1,7 +1,7 @@
 studentsList = []
 option = None
 
-while option != 2:
+while option != "3":
     option = input("\n1. Register a student.\n2. Show registered students.\n3. Leave.\nChoose an option: ")
 
     if option == "1":
@@ -23,23 +23,38 @@ while option != 2:
                         "grade":grade,
                     })
                 
-                
                 studentsList.append({
                     "studentName":studentFullName,
                     "subjectsAndGrades":subjectsAndGrades
                 })
 
+                print(f"\n-----Student {i+1} registered sucessfully-----")
         except:
             print("\n----- ERROR -----\nEnter a valid number")
 
 
     elif option == "2":
-        print("\n----- Students -----")
+        print(f"\n{"-"*8}Students{"-"*8}")
         for i, student in enumerate(studentsList):
+            sum_grades = 0
+            gradesQuantity = 0
             print(f"{i+1}. {student['studentName']}\n")
             
             for i, studentSubjectAndGrade in enumerate(student["subjectsAndGrades"]):
-                print(f"{i+1}--Subject: {studentSubjectAndGrade['subject']}\n----Grade: {studentSubjectAndGrade['grade']}\n")
-        print("-"*20)
+                print(f"Subject {i+1}: {studentSubjectAndGrade['subject']}\nGrade: {studentSubjectAndGrade['grade']}\n")
+                
+                for key, value in studentSubjectAndGrade.items():
+                    if key == 'grade':
+                        sum_grades += value
+                        gradesQuantity += 1
+                gradesAverage = sum_grades / gradesQuantity
+        
+            print(f"Grades Average: {gradesAverage}\n{"-"*25}")
+
+        print(f"{"-"*5}End of the list{"-"*5}")
+    
+    elif option == "3":
+        print(f"\nGoodbye!!")
+
     else:
         print("Choose a valid option.")
